@@ -230,9 +230,15 @@ public class PageEventController {
 }
 ```
 
-**Test :** `http://localhost:8080/publish?name=P1&topic=T2`. Le JSON de l'événement s'affiche dans le navigateur et le message apparaît dans un `kafka-console-consumer` lancé sur `T2`.
-
+**Test :** `http://localhost:8081/publish?name=P1&topic=T2`. Le JSON de l'événement s'affiche dans le navigateur et le message apparaît dans un `kafka-console-consumer` lancé sur `T2`.
+![img_11.png](images/img_11.png)
 > 📸 **Capture à insérer :** navigateur (JSON) + consumer console sur T2.
+>  ms si on veut onlance 
+> docker exec -it bdcc-kafka-siham-broker kafka-console-consumer --bootstrap-server localhost:9092 --topic T2
+> jacttuialise et c bon je le voix dans mon cmd 
+> ![img_12.png](images/img_12.png)  car a chaue jactualise jenvoie un msg
+> cad la ya un rets constolle rqui publie diretcememnt un msg sur kafkka .... 
+> mais pou r creer notre porop[re consumer on vca ] creer notre proppre
 
 ### 5.4 Service Consumer
 
@@ -259,7 +265,14 @@ Pour qu'il s'abonne au topic `T2`, j'ai configuré dans `application.properties`
 spring.cloud.function.definition=pageEventConsumer
 spring.cloud.stream.bindings.pageEventConsumer-in-0.destination=T2
 ```
+On redemmarre don c t on visulaize
+ c recu en cmd et aussi en conusemer qui est  run en intlij
+![img_13.png](images/img_13.png)   
 
+[//]: # (cad la comnsomateur fait subscribe une fois msg il rrecois)
+on pase au suplier
+
+supleir caun producer ss formr de poler qui  
 ### 5.5 Service Supplier
 
 Un *supplier* est une fonction **sans entrée** qui retourne une valeur. Spring l'appelle automatiquement toutes les secondes par défaut, ce qui permet de **simuler un capteur** qui produit un flux de données.
@@ -278,16 +291,22 @@ public Supplier<PageEvent> pageEventSupplier() {
 ```properties
 spring.cloud.function.definition=pageEventConsumer;pageEventSupplier
 spring.cloud.stream.bindings.pageEventSupplier-out-0.destination=T3
-# Par défaut 1000 ms ; je l'ai réduit à 200 ms
-spring.cloud.stream.bindings.pageEventSupplier-out-0.producer.poller.fixed-delay=200
 ```
 
-**Vérification :** un consumer console sur `T3` affiche un message toutes les 200 ms.
+**Vérification :** un consumer console sur `T3` affiche un message toutes les 200 ms.  la on fait rexec e on voit que a chaue sc on voit un msg
+
+
+![img_14.png](images/img_14.png)
+mais si on veut '''
+# Par défaut 1000 ms ; je l'ai réduit à 200 ms
+spring.cloud.stream.bindings.pageEventSupplier-out-0.producer.poller.fixed-delay=200'
+
+![img_14.png](images/img_14.png)
 
 ### 5.6 Kafka Streams : Real Time Stream Processing
 
 Une `Function<KStream<…>, KStream<…>>` a **une entrée et une sortie** : elle lit un flux dans un topic, calcule en temps réel, et publie le résultat dans un autre topic.
-
+ suppliwer p[as din[ut ais ya res mais ici ya inpu rett ouput]]
 Pipeline que j'ai écrit :
 
 1. `filter` : garder uniquement les visites dont la durée est supérieure à 100 ms ;
