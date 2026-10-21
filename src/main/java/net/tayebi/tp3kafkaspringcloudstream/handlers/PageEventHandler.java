@@ -40,4 +40,15 @@ public class PageEventHandler {
             );
         };
     }
+    @Bean
+    public Function<KStream<String, PageEvent>, KStream<String, Long>> kStreamFunction() {
+        return input -> input
+                .filter((k, v) -> v.duration() > 100)
+                .map((k, v) -> new KeyValue<>(v.name(), v.duration()))
+                .groupBy((k, v) -> k, Grouped.with(Serdes.String(), Serdes.Long()))
+                .windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofSeconds(5)))
+                .count(Materialized.as("count-store"))
+                .toStream()
+                .map((k, v) -> new KeyValue<>(k.key(), v));
+    }
 }

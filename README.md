@@ -337,19 +337,19 @@ spring.cloud.stream.bindings.kStreamFunction-out-0.destination=T4
 # Intervalle de commit : 1 s au lieu de 30 s par défaut
 spring.cloud.stream.kafka.streams.binder.configuration.commit.interval.ms=1000
 ```
-
-**Visualiser le résultat dans le topic `T4`** (la valeur est un `Long`, d'où les désérialiseurs) :
-
+avec 
+ on ebvoie res mais ss forme de lettre separe 
+![img_16.png](images/img_16.png)
+**Visualiser le résultat dans le 
+don con fait ca
+topic `T4`** (la valeur est un `Long`, d'où les désérialiseurs) :
+docker exec -it bdcc-kafka-siham-broker kafka-console-consumer --bootstrap-server localhost:9092 --topic T4
 ```bash
-docker exec -it bdcc-kafka-broker kafka-console-consumer \
-  --bootstrap-server localhost:9092 --topic T4 \
-  --property print.key=true --property print.value=true \
-  --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
-  --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+docker exec -it bdcc-kafka-siham-broker kafka-console-consumer --bootstrap-server localhost:9092 --topic T4 --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
 ```
 
 > 📸 **Capture à insérer :** consumer console sur T4 avec P1/P2 et leurs compteurs.
-
+![img_17.png](images/img_17.png)
 **Rappel des 3 types de fonctions :**
 
 | Type | Entrée | Sortie | Rôle dans mon TP |
@@ -358,6 +358,9 @@ docker exec -it bdcc-kafka-broker kafka-console-consumer \
 | `Consumer` | oui | non | Affiche les événements reçus (T2) |
 | `Function` | oui | oui | Kafka Streams : T3 → T4 |
 
+on groupe mainnene et on afait autre fct et on teste car jsuutq moeemnt on a fiat que fileter et map
+e don ca amrhce 
+![img_18.png](images/img_18.png)
 ### 5.7 Exposition des résultats : endpoint `/analytics` (Server-Sent Events)
 
 Je lis le *state store* `count-store` avec l'`InteractiveQueryService`, pour les **5 dernières secondes**, et je pousse le résultat vers le frontend **chaque seconde** sous forme de flux `text/event-stream`.
