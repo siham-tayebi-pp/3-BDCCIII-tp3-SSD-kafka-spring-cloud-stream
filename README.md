@@ -387,11 +387,35 @@ public Flux<Map<String, Long>> analytics() {
             });
 }
 ```
-
+ici pour chuae osec on lit et on ...
 On ne lit donc **pas une base de données** : on interroge un store calculé en continu par Kafka Streams.
+la dans je voix ne straennemn ma dats http://localhost:8081/analytics comme ca
+data:{"P1":2,"P2":2}
 
+data:{"P1":4,"P2":5}
+
+data:{"P1":5,"P2":9}
+
+data:{"P1":8,"P2":11}
+
+data:{"P1":10,"P2":14}
+
+data:{"P1":4}
+
+data:{"P1":6,"P2":2}
+
+data:{"P1":9,"P2":4}
+
+data:{"P1":12,"P2":6}
+
+data:{"P1":13,"P2":10}
+
+data:{"P1":2,"P2":2}
+..................
+![img_19.png](images/img_19.png)
 ### 5.8 Application web temps réel (`static/index.html`)
-
+la on passe au library smothie js elle permt dafficher des eries temporlele et c plus pratqiue:
+la je fias subsribe vers /analytics
 La page utilise la librairie **Smoothie Charts** (séries temporelles) et un `EventSource` qui s'abonne à `/analytics`. À chaque message reçu, je récupère le compteur de `P1` et `P2` et je l'ajoute à la courbe correspondante.
 
 ```html
