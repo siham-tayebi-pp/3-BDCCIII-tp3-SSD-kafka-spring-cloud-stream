@@ -455,10 +455,19 @@ La page utilise la librairie **Smoothie Charts** (séries temporelles) et un `Ev
 </html>
 ```
 
-**Résultat :** en ouvrant `http://localhost:8080/index.html`, on voit deux courbes (vert = `P1`, rouge = `P2`) qui évoluent en temps réel après environ 30 secondes d'attente initiale.
+**Résultat :** en ouvrant `http://localhost:8081/index.html`, on voit deux courbes (vert = `P1`, rouge = `P2`) qui évoluent en temps réel après environ 30 secondes d'attente initiale.
 
+
+
+si je me inpsecter je voix donc datta en strameing ss analytics
+![img_20.png](images/img_20.png)
 > 📸 **Capture à insérer :** la page avec les deux courbes.
-
+>
+//                .filter((k, v) -> v.duration() > 100)
+> si jalais supprimer le filter dan m fct je porai voir   
+> 
+> et al on voi donc que courbe par pas par val > 100 ms va dela de ca 
+![img_21.png](images/img_21.png)
 ---
 
 ## 6. Difficultés rencontrées et solutions

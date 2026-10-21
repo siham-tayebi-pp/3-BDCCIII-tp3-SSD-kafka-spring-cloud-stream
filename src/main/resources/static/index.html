@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Analytics temps réel</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smoothie/1.36.1/smoothie.min.js"></script>
+</head>
+<body>
+<h2>Nombre de visites sur les 5 dernières secondes</h2>
+<canvas id="chart2" width="600" height="400"></canvas>
+
+<script>
+    var pages = ["P1", "P2"];
+    var colors = ["green", "red"];
+    var courbe = [];
+
+    var chart = new SmoothieChart({ tooltip: true });
+    chart.streamTo(document.getElementById("chart2"), 500);
+
+    pages.forEach(function (page, i) {
+        courbe[i] = new TimeSeries({});
+        chart.addTimeSeries(courbe[i], { strokeStyle: colors[i], lineWidth: 2 });
+    });
+
+    var source = new EventSource("/analytics");
+    source.addEventListener("message", function (event) {
+        var data = JSON.parse(event.data);
+        pages.forEach(function (page, i) {
+            courbe[i].append(new Date().getTime(), data[page]);
+        });
+    });
+</script>
+</body>
+</html>
